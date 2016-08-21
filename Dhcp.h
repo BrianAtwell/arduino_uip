@@ -45,7 +45,7 @@
 #define MAX_DHCP_OPT	16
 
 #define HOST_NAME "ENC28J"
-#define HOST_NAME_LENGTH	12
+#define HOST_NAME_LENGTH	24
 #define DEFAULT_LEASE	(900) //default lease time in seconds
 
 #define DHCP_CHECK_NONE         (0)
