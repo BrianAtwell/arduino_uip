@@ -45,6 +45,7 @@
 #define MAX_DHCP_OPT	16
 
 #define HOST_NAME "ENC28J"
+#define HOST_NAME_LENGTH	12
 #define DEFAULT_LEASE	(900) //default lease time in seconds
 
 #define DHCP_CHECK_NONE         (0)
@@ -156,6 +157,7 @@ private:
   unsigned long _secTimeout;
   uint8_t _dhcp_state;
   UIPUDP _dhcpUdpSocket;
+  String _dhcpHostName;
   
   int request_DHCP_lease();
   void reset_DHCP_lease();
@@ -170,6 +172,9 @@ public:
   IPAddress getGatewayIp();
   IPAddress getDhcpServerIp();
   IPAddress getDnsServerIp();
+  
+  void setHostName(String hostName);
+  String getHostName();
   
   int beginWithDHCP(uint8_t *, unsigned long timeout = 60000, unsigned long responseTimeout = 4000);
   int checkLease();
