@@ -74,6 +74,28 @@ UIPEthernetClass::begin(const uint8_t* mac)
   }
   return ret;
 }
+
+int
+UIPEthernetClass::begin(const uint8_t* mac, String hostName)
+{
+  static DhcpClass s_dhcp;
+  _dhcp = &s_dhcp;
+  _dhcp->setHostName(hostName);
+  
+
+  // Initialise the basic info
+  init(mac);
+
+  // Now try to get our config info from a DHCP server
+  int ret = _dhcp->beginWithDHCP((uint8_t*)mac);
+  if(ret == 1)
+  {
+    // We've successfully found a DHCP server and got our configuration info, so set things
+    // accordingly
+    configure(_dhcp->getLocalIp(),_dhcp->getDnsServerIp(),_dhcp->getGatewayIp(),_dhcp->getSubnetMask());
+  }
+  return ret;
+}
 #endif
 
 void
